@@ -4,7 +4,7 @@ import {
     segment
 } from 'oicq'
 
-let botName = '香菜' //此处修改bot名字
+let botName = '' //此处修改bot名字
 //首发群:154687817，（有问题反馈可以来群中）
 
 export class example extends plugin {

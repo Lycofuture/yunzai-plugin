@@ -5,7 +5,7 @@ import {
     segment
 } from 'oicq'
 
-const _path = `./././plugins/soufanvideo/`
+const _path = `./soufanvideo/`
 
 //项目路径
 const _cwdpath = process.cwd();
@@ -45,9 +45,9 @@ export class fjSearch extends plugin {
         if (this.e.source) {
             let reply;
             if (this.e.isGroup) {
-                reply = (await this.e.group.getChatHistory(this.e.source.seq, 1)).pop() ? .message;
+                reply = (await this.e.group.getChatHistory(this.e.source.seq, 1)).pop()?.message;
             } else {
-                reply = (await this.e.friend.getChatHistory(this.e.source.time, 1)).pop() ? .message;
+                reply = (await this.e.friend.getChatHistory(this.e.source.time, 1)).pop()?.message;
             }
             if (reply) {
                 for (let val of reply) {

@@ -1,4 +1,3 @@
-﻿
 import {
     segment
 } from "oicq";
