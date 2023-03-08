@@ -12,7 +12,7 @@ export class DianZan extends plugin {
             priority: 8,
             rule: [{
                 reg: /^#?(点赞|赞我|点zan)$/,
-                fnc: 'thuMUp',
+                fnc: 'thuMUp'
             }]
         })
     }
@@ -48,8 +48,8 @@ export class DianZan extends plugin {
                 }
             }
             /** 回复的消息 */
-            let successResult = ['\n', `赞了${n}下噢喵~,可以..可以回我一下嘛o(*////▽////*)q~`, successImg, '\n', urls_one]
-            let faildsResult = ['\n', failsmsg, faildsImg, urls_one]
+            let successResult = ['\n', `赞了${n}下噢喵~,可以..可以回我一下嘛o(*////▽////*)q~`, successImg, ]
+            let faildsResult = ['\n', failsmsg, faildsImg]
 
             /** 判断点赞是否成功 */
             let msg = n > 0 ? successResult : faildsResult
@@ -59,6 +59,7 @@ export class DianZan extends plugin {
                 true, {
                     at: true
                 })
+            await e.reply(urls_one, true)
             return true
         }
         await Bot.sendLike(e.user_id, 20)

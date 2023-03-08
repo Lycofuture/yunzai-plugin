@@ -40,7 +40,7 @@ export class St extends plugin {
                 let msg = '已获取图片' + (i + 1) + '张'
                 image.push(segment.image(obj.data[0].urls.original))
             }
-            let abc = await e.reply(num = 1 ? await co.makeForwardMsg(e,image,'清凉图来啦') : image, false, {
+            let abc = await e.reply(await co.makeForwardMsg(e,image),false, {
                 recallMsg: 0
             }); //群聊撤回间隔
             // let abc =  await e.reply(await co.makeForwardMsg(msgList),false,{recallMsg:0});//群聊撤回间隔
@@ -96,7 +96,7 @@ export class St extends plugin {
                 image.push(segment.image(obj.data[0].urls.original))
                 await common.sleep(500);
             }
-            let abc = await e.reply(num = 1 ? await co.makeForwardMsg(e,image,'清凉图来啦') : image, false, {
+            let abc = await e.reply(await co.makeForwardMsg(e,image), false, {
                 recallMsg: 0
             }); //群聊撤回间隔
             // let abc =  await e.reply(await co.makeForwardMsg(msgList),false,{recallMsg:0});//群聊撤回间隔

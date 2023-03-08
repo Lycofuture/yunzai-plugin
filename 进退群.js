@@ -15,8 +15,6 @@ export class newcomer extends plugin {
 
     /** 接受到消息都会执行一次 */
     async accept() {
-        /** 定义入群欢迎内容 */
-        let msg = "欢迎来到提瓦特\n入群需改昵称为游戏uid\n以方便更好的交流游玩\n不改昵称的会被踢出群聊哦\n"
         /** 冷却cd 30s */
         let cd = 1
 
@@ -34,12 +32,18 @@ export class newcomer extends plugin {
             segment.at(this.e.user_id),
             // segment.image(),
             segment.image(
-                `https://api.dujin.org/pic/yuanshen/`
-            ),
-            msg
+                'http://q.qlogo.cn/headimg_dl?dst_uin=${e.user_id}&spec=640&img_type=jpg'
+            ), '\n',
+            '您好我是本群的小小助手',
+            '欢迎${user_id}加入提瓦特\n',
+            '########################\n',
+            '#                      #\n',
+            '#    大佬又在装萌新了  #\n',
+            '#                      #\n',
+            '########################\n'
         ])
-        await this.reply(msg('记得要改群昵称哦～'))
-        await this.reply(msg('快来欢迎这位小伙伴'))
+        await this.reply('记得要改群昵称哦～')
+        await this.reply('快来欢迎这位小伙伴')
     }
 }
 
@@ -51,7 +55,6 @@ export class outNotice extends plugin {
             event: 'notice.group'
         })
     }
-
     async accept(e) {
         //let name, msg
         let msg
