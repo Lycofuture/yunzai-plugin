@@ -1,7 +1,9 @@
 import plugin from '../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import fs from 'node:fs'
-import { segment } from 'oicq'
+import {
+    segment
+} from 'oicq'
 
 const _path = `./././plugins/soufanvideo/`
 
@@ -25,14 +27,12 @@ export class fjSearch extends plugin {
             event: 'message',
             /** 优先级，数字越小等级越高 */
             priority: 1001,
-            rule: [
-                {
-                    /** 命令正则匹配 */
-                    reg: '#*搜番$',
-                    /** 执行方法 */
-                    fnc: 'fjsearch'
-                }
-            ]
+            rule: [{
+                /** 命令正则匹配 */
+                reg: '#*搜番$',
+                /** 执行方法 */
+                fnc: 'fjsearch'
+            }]
         })
     }
 
@@ -45,9 +45,9 @@ export class fjSearch extends plugin {
         if (this.e.source) {
             let reply;
             if (this.e.isGroup) {
-                reply = (await this.e.group.getChatHistory(this.e.source.seq, 1)).pop()?.message;
+                reply = (await this.e.group.getChatHistory(this.e.source.seq, 1)).pop() ? .message;
             } else {
-                reply = (await this.e.friend.getChatHistory(this.e.source.time, 1)).pop()?.message;
+                reply = (await this.e.friend.getChatHistory(this.e.source.time, 1)).pop() ? .message;
             }
             if (reply) {
                 for (let val of reply) {
@@ -62,8 +62,10 @@ export class fjSearch extends plugin {
         if (!this.e.img) {
 
             this.setContext('dealImg');
-            await this.reply(" 请发送动漫番剧截图", false, { at: true });
-        }else{
+            await this.reply(" 请发送动漫番剧截图", false, {
+                at: true
+            });
+        } else {
             this.dealImg();
         }
 
@@ -76,7 +78,9 @@ export class fjSearch extends plugin {
 
         let responseImage = await fetch(this.e.img[0]);
         if (!responseImage.ok) {
-            await this.reply("获取番剧图片失败", false, { at: true });
+            await this.reply("获取番剧图片失败", false, {
+                at: true
+            });
         }
 
         let buffer = await responseImage.arrayBuffer();
@@ -85,7 +89,11 @@ export class fjSearch extends plugin {
         };
         let file = Buffer.from(buffer, 'binary');
         let urlapi = "https://api.trace.moe/search?anilistInfo=&cutBorders=";
-        let response = await fetch(urlapi, { method: "POST", body: file, headers });
+        let response = await fetch(urlapi, {
+            method: "POST",
+            body: file,
+            headers
+        });
         let res = await response.json();
 
         if (res.result.length == 0) {
@@ -139,7 +147,7 @@ export class fjSearch extends plugin {
         response = await fetch(url);
         let buff = await response.arrayBuffer();
         var me = this;
-        fs.writeFile(`${_path}temp.mp4`, Buffer.from(buff), "binary", async function (err) {
+        fs.writeFile(`${_path}temp.mp4`, Buffer.from(buff), "binary", async function(err) {
             console.log(err || "下载视频成功");
             if (!err) {
                 if (!resultall.anilist.isAdult) {
@@ -159,7 +167,9 @@ export class fjSearch extends plugin {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ query: query }),
+            body: JSON.stringify({
+                query: query
+            }),
         });
 
         let res = await response.json();

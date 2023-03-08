@@ -1,9 +1,14 @@
 import plugin from '../../lib/plugins/plugin.js'
-import { segment } from 'oicq'
+import {
+    segment
+} from 'oicq'
 import lodash from "lodash";
 
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
+import {
+    createRequire
+} from 'module'
+const require = createRequire(
+    import.meta.url)
 
 export class webPreview extends plugin {
     constructor() {
@@ -16,8 +21,7 @@ export class webPreview extends plugin {
             event: 'message',
             /** 优先级，数字越小等级越高 */
             priority: 1006,
-            rule: [
-                {
+            rule: [{
                     /** 命令正则匹配 */
                     reg: '^(?:(http|https):\/\/)?((?:[\\w-]+\\.)+[a-z0-9]+)((?:\/[^\/?#]*)+)?(\\?[^#]+)?(#.+)?$',
                     /** 执行方法 */
@@ -30,7 +34,7 @@ export class webPreview extends plugin {
                     fnc: 'baiduWeb'
                 },
             ]
-     
+
         })
     }
 
@@ -52,7 +56,7 @@ export class webPreview extends plugin {
                 '--no-sandbox',
                 '--no-zygote',
                 '--single-process'
-              ]
+            ]
         });
         const page = await browser.newPage();
         await page.goto(e.msg);
@@ -60,11 +64,11 @@ export class webPreview extends plugin {
             width: 1920,
             height: 1080
         });
-    
+
         await this.reply(segment.image(await page.screenshot({
             fullPage: true
         })))
-    
+
         await browser.close();
     }
 
@@ -72,7 +76,7 @@ export class webPreview extends plugin {
      * 
      * @param e oicq传递的事件参数e
      */
-     async baiduWeb(e) {
+    async baiduWeb(e) {
 
         let webkeywd = e.msg.replace(/#|百度/gm, '');
 
@@ -85,12 +89,12 @@ export class webPreview extends plugin {
         let keyWd = '';
         let searchKey = '';
 
-        if(wdKey.length > 1){ 
+        if (wdKey.length > 1) {
             searchKey = wdKey[0]
             keyWd = wdKey[1];
         }
 
-        console.log("keyWd",keyWd);
+        console.log("keyWd", keyWd);
 
         let weburl = `https://www.baidu.com/s?wd=${searchKey?searchKey:webkeywd}`;
 
@@ -106,7 +110,7 @@ export class webPreview extends plugin {
                 '--no-sandbox',
                 '--no-zygote',
                 '--single-process'
-              ]
+            ]
         });
         const page = await browser.newPage();
         await page.goto(weburl);
@@ -115,35 +119,35 @@ export class webPreview extends plugin {
             height: 1080
         });
 
-        if(keyWd != '列表'){
+        if (keyWd != '列表') {
 
-            let link = await page.evaluate(async keyWd  => {
+            let link = await page.evaluate(async keyWd => {
 
                 return [...document.querySelectorAll('.result a')].filter(item => {
                     return item.innerText && item.innerText.includes(keyWd)
                 })[0].toString();
-            },keyWd);
-    
-            if(link){
+            }, keyWd);
+
+            if (link) {
                 // console.log("找到");
                 link = link.toString();
-            }else{
+            } else {
                 // console.log("没找到");
                 link = weburl;
             }
             console.log(link);
-    
+
             await page.goto(link);
 
         }
-        
 
-        
-    
+
+
+
         await this.reply(segment.image(await page.screenshot({
             fullPage: true
         })))
-    
+
         await browser.close();
     }
 }

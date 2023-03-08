@@ -11,10 +11,9 @@ export class cs extends plugin {
             event: 'message',
             priority: 1,
             rule: [{
-                    reg: '^#?绑定(sk|ck|cookie)|绑定(sk|ck|cookie)帮助$',
-                    fnc: 'cook'
-                }
-            ]
+                reg: '^#?绑定(sk|ck|cookie)|绑定(sk|ck|cookie)帮助$',
+                fnc: 'cook'
+            }]
         })
     }
     async cook(e) {

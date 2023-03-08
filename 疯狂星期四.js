@@ -1,6 +1,8 @@
 import plugin from '../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
-import { segment } from 'oicq'
+import {
+    segment
+} from 'oicq'
 
 export class Crazy4 extends plugin {
     constructor() {
@@ -13,14 +15,12 @@ export class Crazy4 extends plugin {
             event: 'message',
             /** 优先级，数字越小等级越高 */
             priority: 1003,
-            rule: [
-                {
-                    /** 命令正则匹配 */
-                    reg: '^#*(疯狂)*星期四$',
-                    /** 执行方法 */
-                    fnc: 'Crazy4'
-                }
-            ]
+            rule: [{
+                /** 命令正则匹配 */
+                reg: '^#*(疯狂)*星期四$',
+                /** 执行方法 */
+                fnc: 'Crazy4'
+            }]
         })
     }
 
@@ -79,6 +79,6 @@ export class Crazy4 extends plugin {
 
         let FC4 = textFC4[Math.round(Math.random() * (textFC4.length - 1))];
 
-        await  this.e.reply(FC4.includes("http") ? segment.image(FC4) : FC4);
+        await this.e.reply(FC4.includes("http") ? segment.image(FC4) : FC4);
     }
 }
