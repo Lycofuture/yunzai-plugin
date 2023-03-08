@@ -16,7 +16,7 @@ const botsender = false;
 
 // 其他 ==============================================================================
 const allowQYHY = true; //是否允许群友换源（仅限在已添加的源中选择）
-const iswoc = true; //是否覆盖闲心plugin的“卧槽”、“woc”功能。如需使用闲心plugin的woc功能，可将此处设为false
+const iswoc = false; //是否覆盖闲心plugin的“卧槽”、“woc”功能。如需使用闲心plugin的woc功能，可将此处设为false
 const withdrawTimer = 0; //视频自动撤回时间，0~120（秒），0表示不撤回
 const wocwithdrawTimer = 0; //图片自动撤回时间，0~120（秒），0表示不撤回
 
