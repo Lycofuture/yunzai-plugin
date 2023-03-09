@@ -113,7 +113,7 @@ export class outNotice extends plugin {
                     // 是否为机器人撤回
                     if (e.user_id == Bot.uin) return false
                     // 是否为主人撤回
-                    if (masterQQ.includes(e.user_id)) return false
+                    // if (e.user_id) return false
                     // 读取
                     let res = JSON.parse(
                         await redis.get(`notice:messageGroup:${e.message_id}`)
