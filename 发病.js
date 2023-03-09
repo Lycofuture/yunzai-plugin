@@ -1,4 +1,4 @@
-let getComplaint = {
+var getComplaint = {
         return ComplaintList[Math.floor(Math.random() * ComplaintList.length)]
 }
 let ComplaintList = [
