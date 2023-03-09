@@ -3,13 +3,8 @@ import {
     segment
 } from 'oicq'
 import lodash from "lodash";
-
-import {
-    createRequire
-} from 'module'
-const require = createRequire(
-    import.meta.url)
-
+import {createRequire} from 'module'
+const require = createRequire(import.meta.url)
 export class webPreview extends plugin {
     constructor() {
         super({

@@ -14,7 +14,7 @@ import fetch from "node-fetch";
  * npm install mathjs
  * npm install jimp
  * npm install arraybuffer-to-buffer
- *
+ * npm install mathjs jimp arraybuffer-to-buffer
  */
 
 export class qqhuanying extends plugin {

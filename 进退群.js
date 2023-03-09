@@ -2,56 +2,11 @@ import plugin from '../../lib/plugins/plugin.js'
 import {
     segment
 } from 'oicq'
-export class newcomer extends plugin {
-    constructor() {
-        super({
-            name: '欢迎新人',
-            dsc: '新人入群欢迎',
-            /** https://oicqjs.github.io/oicq/#events */
-            event: 'notice.group.increase',
-            priority: 5000,
-        })
-    }
-
-    /** 接受到消息都会执行一次 */
-    async accept() {
-        /** 冷却cd 30s */
-        let cd = 1
-
-        if (this.e.user_id == Bot.uin) return
-
-        /** cd */
-        let key = `Yz:newcomers:${this.e.group_id}`
-        if (await redis.get(key)) return
-        redis.set(key, '1', {
-            EX: cd
-        })
-
-        /** 回复 */
-        await this.reply([
-            segment.at(this.e.user_id),
-            // segment.image(),
-            segment.image(
-                'http://q.qlogo.cn/headimg_dl?dst_uin=${e.user_id}&spec=640&img_type=jpg'
-            ), '\n',
-            '您好我是本群的小小助手',
-            '欢迎${user_id}加入提瓦特\n',
-            '########################\n',
-            '#                      #\n',
-            '#    大佬又在装萌新了  #\n',
-            '#                      #\n',
-            '########################\n'
-        ])
-        await this.reply('记得要改群昵称哦～')
-        await this.reply('快来欢迎这位小伙伴')
-    }
-}
-
 export class outNotice extends plugin {
     constructor() {
         super({
-            name: '退群通知',
-            dsc: 'xx退群了',
+            name: '进退群通知',
+            dsc: '群通知',
             event: 'notice.group'
         })
     }
@@ -64,16 +19,35 @@ export class outNotice extends plugin {
                 {
                     if (e.user_id === Bot.uin) {
                         // if (!Config.getGroup(e.group_id).groupNumberChange) return false
-
-                        
-
                         msg = [
                             segment.image(`https://p.qlogo.cn/gh/${e.group_id}/${e.group_id}/100`),
                             '我是派蒙小助手\n',
-                           // `新增群号：${e.group_id}`
-                           '大家快来欢迎我'
+                            // `新增群号：${e.group_id}`
+                            '大家快来欢迎我'
                         ]
                         logger.mark(`[新增群聊]${e.group_id} ${msg}`)
+                    } else {
+                        //  if (!Config.getGroup(e.group_id).groupMemberNumberChange) return false
+                        logger.mark('新增群员')
+                        msg = [
+                            //segment.image(`https://p.qlogo.cn/gh/${e.group_id}/${e.group_id}/100`),
+                            //'[通知 - 新增群员]\n',
+                            // `群号：${e.group_id}\n`,
+                            //`新成员QQ：${e.user_id}\n`,
+                            //`新成员昵称：${e.nickname}`,
+                            segment.at(this.e.user_id),
+                            // segment.image(),
+                            segment.image(
+                                'http://q.qlogo.cn/headimg_dl?dst_uin=${e.user_id}&spec=640&img_type=jpg'
+                            ), '\n',
+                            '您好我是本群的小小助手',
+                            '欢迎${user_id}加入提瓦特\n',
+                            '########################\n',
+                            '#                      #\n',
+                            '#    大佬又在装萌新了  #\n',
+                            '#                      #\n',
+                            '########################\n'
+                        ]
                     }
                     break
                 }

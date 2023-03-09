@@ -2,7 +2,11 @@ import plugin from "../../lib/plugins/plugin.js";
 import lodash from "lodash";
 
 // @机器人后自定义回复，随机取
-const replies = ["@本大人干啥玩意", "啥事？", "666"];
+const replies = [
+    "@本大人干啥玩意",
+    "啥事？",
+    "666"
+];
 
 export class replyat extends plugin {
     constructor() {
