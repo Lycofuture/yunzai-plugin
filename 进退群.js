@@ -35,7 +35,7 @@ export class outNotice extends plugin {
                             // `群号：${e.group_id}\n`,
                             //`新成员QQ：${e.user_id}\n`,
                             //`新成员昵称：${e.nickname}`,
-                            segment.at(this.e.user_id),
+                            segment.at(e.user_id),
                             // segment.image(),
                             segment.image(
                                 'http://q.qlogo.cn/headimg_dl?dst_uin=${e.user_id}&spec=640&img_type=jpg'
